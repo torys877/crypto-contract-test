@@ -10,9 +10,6 @@
             "role": "Developer"
         }
     ],
-    "require": {
-        "crypto/base": "v1.0.0"
-    },
     "license": "MIT",
     "autoload": {
         "files": [
