@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © Ihor Oleksiienko (https://github.com/torys877)
+ * See LICENSE for license details.
+ */
+use Crypto\EtherPayment\ViewModel\EtherProcessing;
+
+/** @var EtherProcessing $viewModel */
+$viewModel = $block->getViewModel();
+?>
+<div
+    data-bind="scope: 'web3paymentscopetwo'">
+    BUTTONS
+    <a href="#" data-bind="click: getAccounts">getAccounts</a> <br />
+    <a href="#" data-bind="click: isWalletConnected">isWalletConnected</a> <br />
+    <a href="#" data-bind="click: connectWallet">connectWallet</a> <br />
+    <a href="#" data-bind="click: myinit">letprov</a> <br />
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                        "web3paymentscopetwo": {
+                            "component": "Crypto_Test/js/web3custom"
+                        }
+                    }
+                }
+            }
+    }
+</script>

@@ -1,0 +1,80 @@
+<?php
+/**
+    * Copyright © Ihor Oleksiienko (https://github.com/torys877)
+    * See LICENSE for license details.
+    */
+
+use Crypto\EtherPayment\ViewModel\EtherProcessing;
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+/** @var EtherProcessing $viewModel */
+$viewModel = $block->getViewModel();
+?>
+<div
+    data-bind="scope: 'web3paymentscope'">
+
+    <label for="contract_address">Smart Contract Address</label>
+    <input type="text" id="contract_address" value="0x689ac3346e3658a4223f49800a2ce66bf80c1d97"/>
+    <br /><br /><br />
+
+    <label for="contract_abi">Smart Contract ABI</label>
+    <textarea id="contract_abi" rows="4" cols="50">[{"inputs":[],"stateMutability":"payable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"uint256","name":"orderId","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Payment","type":"event"},{"inputs":[],"name":"OWNER","outputs":[{"internalType":"address payable","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"orderNumber","type":"uint256"}],"name":"claimMoney","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"orderNumber","type":"uint256"}],"name":"customerApprove","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"customerOrder","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"orderNumber","type":"uint256"}],"name":"getOrderData","outputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"bool","name":"","type":"bool"},{"internalType":"bool","name":"","type":"bool"},{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"orderNumber","type":"uint256"}],"name":"merchantApprove","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"orders","outputs":[{"internalType":"address","name":"customerAddress","type":"address"},{"internalType":"uint256","name":"orderNumber","type":"uint256"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"bool","name":"customerApprove","type":"bool"},{"internalType":"bool","name":"merchantApprove","type":"bool"},{"internalType":"bool","name":"isRefunded","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"orderNumber","type":"uint256"}],"name":"pay","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"orderNumber","type":"uint256"}],"name":"refund","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"withdrawAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"orderNumber","type":"uint256"}],"name":"withdrawBothApprove","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"orderNumber","type":"uint256"}],"name":"withdrawNoApprove","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"orderNumber","type":"uint256"}],"name":"withdrawOwnerApprove","outputs":[],"stateMutability":"nonpayable","type":"function"}]</textarea>
+    <br /><br />
+    <hr/>
+    <br /><br />
+
+    <label for="order_number">Order Number</label>
+    <input type="text" id="order_number" /> <br/>
+    <br /><br />
+
+    <label for="amount">Amount</label>
+    <input type="text" id="amount" value="0.025"/>
+    <br/><br /><br />
+
+    <select id="accounts">
+
+    </select>
+
+
+    <br/><br /><br />
+
+    <div class="message" style="display: none"></div>
+    <br/><br /><br />
+
+    <button id="load_contract" type="submit" title="<?=__('Load Contract(for test)')?>" class="action primary" data-bind="click: loadContract">
+        <span><?=__('Load Contract(for test)')?></span>
+    </button>
+
+    <button id="connect_wallet" type="submit" title="<?=__('Connect Wallet')?>" class="action primary" data-bind="click: connectWallet, visible: !isWalletConnected()">
+        <span><?=__('Connect Wallet')?></span>
+    </button>
+
+    <button id="pay" type="submit" style="display: none" title="<?=__('Pay by Eth')?>" class="action primary" data-bind="click: payInContract, visible: isWalletConnected() && getCurrentAccount()">
+        <span><?=__('Pay by Eth')?></span>
+    </button>
+
+    <button id="approve" type="submit" title="<?=__('Approve(client)')?>" class="action primary" data-bind="click: approvePayment">
+        <span><?=__('Approve(client)')?></span>
+    </button>
+
+    <button id="claim" type="submit" title="<?=__('Claim(client)')?>" class="action primary" data-bind="click: claimPayment">
+        <span><?=__('Claim(client)')?></span>
+    </button>
+    <button id="claim" type="submit" title="<?=__('getOrderData')?>" class="action primary" data-bind="click: getOrderData">
+        <span><?=__('getOrderData')?></span>
+    </button>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                        "web3paymentscope": {
+                            "component": "Crypto_Test/js/customer/web3component"
+                        }
+                    }
+                }
+            }
+    }
+</script>

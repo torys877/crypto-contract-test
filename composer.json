@@ -1,0 +1,25 @@
+{
+    "name": "cryptom2/crypto-contract-test",
+    "version": "v1.0.0",
+    "description": "Test Module for checking contract payment for magento meetup 7",
+    "type": "magento2-module",
+    "authors": [
+        {
+            "name": "Ihor Oleksiienko",
+            "homepage": "https://github.com/torys877",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "crypto/base": "v1.0.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crypto\\Test\\": ""
+        }
+    }
+}
